@@ -1,42 +1,58 @@
-public class GumballMachine
-{
-
+public class GumballMachine {
     private int num_gumballs;
-    private boolean has_quarter;
+    private int inserted_coin_value;
+    private int price;
+    private int[] accept_coins;
 
-    public GumballMachine( int size )
-    {
+    public GumballMachine(int size, int price, int[] accept_coins) {
         // initialise instance variables
         this.num_gumballs = size;
-        this.has_quarter = false;
+        this.inserted_coin_value = 0;
+        this.price = price;
+        this.accept_coins = accept_coins;
+
     }
 
-    public void insertQuarter(int coin)
-    {
-        if ( coin == 25 )
-            this.has_quarter = true ;
-        else 
-            this.has_quarter = false ;
+    private boolean validateCoin(int coin) {
+
+        for (int i = 0; i < accept_coins.length; i++) {
+            if (accept_coins[i] == coin) {
+                return true;
+            }
+
+        }
+        return false;
+
     }
-    
-    public void turnCrank()
-    {
-    	if ( this.has_quarter )
-    	{
-    		if ( this.num_gumballs > 0 )
-    		{
-    			this.num_gumballs-- ;
-    			this.has_quarter = false ;
-    			System.out.println( "Thanks for your quarter.  Gumball Ejected!" ) ;
-    		}
-    		else
-    		{
-    			System.out.println( "No More Gumballs!  Sorry, can't return your quarter." ) ;
-    		}
-    	}
-    	else 
-    	{
-    		System.out.println( "Please insert a quarter" ) ;
-    	}        
+
+    public void insertCoin(int coin) {
+        if (this.validateCoin(coin)) {
+            this.inserted_coin_value += coin;
+        } else {
+            System.out.println("Cannot accept this coin.");
+        }
+    }
+
+    public void turnCrank() {
+        if (this.checkInsertedCoinValue()) {
+            this.giveGumball();
+        } else {
+            System.out.println("Please insert coins.");
+        }
+
+    }
+
+    private boolean checkInsertedCoinValue() {
+        return this.inserted_coin_value >= this.price;
+    }
+
+    private void giveGumball() {
+        if (this.num_gumballs > 0) {
+            this.num_gumballs--;
+            this.inserted_coin_value = 0;
+            System.out.println("Thanks for your coins.  Gumball Ejected!");
+        } else {
+            System.out.println("No More Gumballs!  Sorry, can't return your coins.");
+        }
     }
 }

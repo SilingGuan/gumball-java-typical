@@ -1,0 +1,16 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - GumballMachineMain",
+            "request": "launch",
+            "mainClass": "GumballMachineMain"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - GumballMachine",
+            "request": "launch",
+            "mainClass": "GumballMachine"
+        }
+    ]
+}
